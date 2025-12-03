@@ -7,6 +7,7 @@ def parse_sql(sql_file):
         in_table = False
         relationships = set()
         keywords = {' INT': 'Integer', 'VARCHAR': 'String', 'TEXT': 'String', 'DECIMAL': 'Float'}
+        relationships = []
         for line in sql.readlines():
             curr_kw = ''
             line = line.strip()
@@ -34,6 +35,8 @@ def parse_sql(sql_file):
                 if 'id' in value:
                     curr_idx = value.index('id')
                     new_value = value[:curr_idx-1]
+                    if (new_value, table) not in relationships:
+                        relationships.append((table, new_value))
                     final_dict[table][new_value] = new_value
                 else:
                     final_dict[table][value] = tables[table][value]
@@ -41,15 +44,18 @@ def parse_sql(sql_file):
         first_table = True
         for table in final_dict:
             if first_table:
-                output += f'\n  class {table}' + ' {'
+                output += f'\n    class {table[0].upper()}{table[1:]}' + ' {'
                 first_table = False
             else:
-                output += '\n    }' + f'\n  class {table}' + ' {'
+                output += '\n    }' + f'\n    class {table[0].upper()}{table[1:]}' + ' {'
             for value in final_dict[table]:
                 output += f'\n       +{final_dict[table][value][0].upper()}{final_dict[table][value][1:]} {value}'
         if not first_table:
             output += '\n    }'
         
+        for start, end in relationships:
+            output += f'\n    {start[0].upper()}{start[1:]} -- {end[0].upper()}{end[1:]}'
+        output += '\n@enduml'
         return output
 
 print(parse_sql("schema.txt"))
