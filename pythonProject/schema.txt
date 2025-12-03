@@ -1,0 +1,124 @@
+USE NSPIRE;
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS equipment;
+DROP TABLE IF EXISTS contact;
+DROP TABLE IF EXISTS collection;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS city;
+DROP TABLE IF EXISTS organization;
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ===========================
+-- ORGANIZATION
+-- ===========================
+CREATE TABLE organization (
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  name       VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ===========================
+-- CITY
+-- ===========================
+CREATE TABLE city (
+  id   INT AUTO_INCREMENT PRIMARY KEY,
+  city VARCHAR(255) NOT NULL
+);
+
+-- ===========================
+-- ADDRESS
+-- ===========================
+CREATE TABLE address (
+  id      INT AUTO_INCREMENT PRIMARY KEY,
+  street  VARCHAR(255) NOT NULL,
+  city_id  INT NOT NULL,
+  state   VARCHAR(255) NOT NULL,
+  zipcode INT NOT NULL,
+  CONSTRAINT fk_address_city
+    FOREIGN KEY (city_id)
+    REFERENCES city(id)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE
+);
+
+-- ===========================
+-- COLLECTION
+-- ===========================
+CREATE TABLE collection (
+  id               INT AUTO_INCREMENT PRIMARY KEY,
+  organization_id  INT NOT NULL,
+  parent_id        INT DEFAULT NULL,
+  name             VARCHAR(255) NOT NULL,
+  address_id        INT,
+  url              VARCHAR(255),
+  created_at       TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_collection_org
+    FOREIGN KEY (organization_id)
+    REFERENCES organization(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_collection_parent
+    FOREIGN KEY (parent_id)
+    REFERENCES collection(id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_collection_address
+    FOREIGN KEY (address_id)
+    REFERENCES address(id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+);
+
+-- ===========================
+-- CONTACT
+-- ===========================
+CREATE TABLE contact (
+  id            INT AUTO_INCREMENT PRIMARY KEY,
+  collection_id INT NOT NULL,
+  name          VARCHAR(255) NOT NULL,
+  phone         VARCHAR(50),
+  email         VARCHAR(255),
+  CONSTRAINT fk_contact_collection
+    FOREIGN KEY (collection_id)
+    REFERENCES collection(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+-- ===========================
+-- EQUIPMENT
+-- ===========================
+CREATE TABLE equipment (
+  id            INT AUTO_INCREMENT PRIMARY KEY,
+  collection_id INT NOT NULL,
+  name          VARCHAR(255) NOT NULL,
+  description   TEXT,
+  fee           DECIMAL(10,2),
+  image         VARCHAR(255) NULL,
+  url           VARCHAR(255),
+  CONSTRAINT fk_equipment_collection
+    FOREIGN KEY (collection_id)
+    REFERENCES collection(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+-- ===========================
+-- SERVICES
+-- ===========================
+CREATE TABLE services (
+  id            INT AUTO_INCREMENT PRIMARY KEY,
+  collection_id INT NOT NULL,
+  name          VARCHAR(255) NOT NULL,
+  description   TEXT,
+  fee           DECIMAL(10,2),
+  image         VARCHAR(255) NULL,
+  url           VARCHAR(255),
+  CONSTRAINT fk_services_collection
+    FOREIGN KEY (collection_id)
+    REFERENCES collection(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
