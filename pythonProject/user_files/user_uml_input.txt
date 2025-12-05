@@ -5,11 +5,17 @@
     class City {
        +String city
     }
-    class Address {
+    class Addreess {
        +String street
        +City city
        +String state
        +Integer zipcode
+    }
+    class Contact {
+       +Collection collection
+       +String name
+       +String phone
+       +String email
     }
     class Collection {
        +Organization organization
@@ -18,16 +24,9 @@
        +Address address
        +String url
     }
-    class Contact {
-       +Collection collection
-       +String name
-       +String phone
-       +String email
-    }
     class Equipment {
        +Collection collection
        +String name
-       +String description
        +Float fee
        +String image
        +String url
@@ -40,9 +39,8 @@
        +String image
        +String url
     }
-    Address -- City
+    City -- Address
     Collection -- Organization
-    Collection -- Parent
     Collection -- Address
     Contact -- Collection
     Equipment -- Collection

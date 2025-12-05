@@ -257,8 +257,13 @@ def compare_uml_models(correct_classes, correct_rels, user_classes, user_rels):
 
 
 def print_warning_messages():
+    print_string = ""
     for warning_message in warnings:
-        print(warning_message)
+        print_string += f"{warning_message}\n"
+    if print_string:
+        print(print_string)
+    else:
+        print("No warnings found.")
 
 
 def build_uml_model_from_file(filename):
@@ -274,10 +279,10 @@ def build_uml_model_from_file(filename):
     return classes, relationships
 
 
-def validate_file():
+def validate_file(file_name):
     warnings.clear()
     tables.clear()
     correct_classes, correct_rels = build_uml_model_from_file("plantuml_export.txt")
-    user_classes, user_rels = build_uml_model_from_file("user_uml_input.txt")
+    user_classes, user_rels = build_uml_model_from_file(file_name)
     compare_uml_models(correct_classes, correct_rels, user_classes, user_rels)
     print_warning_messages()
