@@ -62,4 +62,5 @@ def parse_sql(sql_file):
 
         return output
 
-print(parse_sql("schema.txt"))
+def print_uml_from_schema(schema_file):
+    print(parse_sql(schema_file))
