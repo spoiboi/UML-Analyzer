@@ -256,18 +256,22 @@ def compare_uml_models(correct_classes, correct_rels, user_classes, user_rels):
         )
 
 
-def print_warning_messages():
+def print_warning_messages(count):
     print_string = ""
+    warning_count = len(warnings)
     for warning_message in warnings:
         print_string += f"{warning_message}\n"
     if print_string:
         print(print_string)
     else:
         print("No warnings found.")
-
+    similarity_score = (((count - warning_count) / count) * 100)
+    similarity_score = round(similarity_score, 2)
+    print("Similarity Score: " + str(similarity_score) + "%")
 
 def build_uml_model_from_file(filename):
     lines = parse_plantuml(filename)
+    count = len(lines)
     validate_start(lines)
     validate_end(lines)
     validate_uml_entities(lines)
@@ -276,13 +280,13 @@ def build_uml_model_from_file(filename):
         for t in tables
     ]
     relationships = parse_relationships(lines)
-    return classes, relationships
+    return classes, relationships, count
 
 
 def validate_file(file_name):
     warnings.clear()
     tables.clear()
-    correct_classes, correct_rels = build_uml_model_from_file("plantuml_export.txt")
-    user_classes, user_rels = build_uml_model_from_file(file_name)
+    correct_classes, correct_rels, count = build_uml_model_from_file("plantuml_export.txt")
+    user_classes, user_rels, count2 = build_uml_model_from_file(file_name)
     compare_uml_models(correct_classes, correct_rels, user_classes, user_rels)
-    print_warning_messages()
+    print_warning_messages(count2)

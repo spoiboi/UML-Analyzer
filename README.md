@@ -4,7 +4,7 @@ CSCE-411 Class Project
 ## Objective
 Using Python, verify that UML class diagrams (written in PlantUML) accurately depict sample objects and classes, including constraints. 
 Convert user-provided SQL schema to a plantUML class diagram and compare it with the user-provided plantUML code.
-Then, output a report citing inaccuracies, syntax errors, and suggested improvements to the PlantUML code.
+Then, output a report citing inaccuracies, syntax errors, and a similarity score to the PlantUML code.
 
 ## Research & Report
 Compare our script to the performance of AI prompted to do the same task.
