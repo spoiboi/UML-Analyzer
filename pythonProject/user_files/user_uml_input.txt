@@ -1,0 +1,48 @@
+@startuml
+    class Organization {
+       +String name
+    }
+    class City {
+       +String city
+    }
+    class Addreess {
+       +String street
+       +City city
+       +String state
+       +Integer zipcode
+    }
+    class Contact {
+       +Collection collection
+       +String name
+       +String phone
+       +String email
+    }
+    class Collection {
+       +Organization organization
+       +Parent parent
+       +String name
+       +Address address
+       +String url
+    }
+    class Equipment {
+       +Collection collection
+       +String name
+       +Float fee
+       +String image
+       +String url
+    }
+    class Services {
+       +Collection collection
+       +String name
+       +String description
+       +Float fee
+       +String image
+       +String url
+    }
+    City -- Address
+    Collection -- Organization
+    Collection -- Address
+    Contact -- Collection
+    Equipment -- Collection
+    Services -- Collection
+@enduml
