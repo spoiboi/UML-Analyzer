@@ -56,6 +56,10 @@ def parse_sql(sql_file):
         for start, end in relationships:
             output += f'\n    {start[0].upper()}{start[1:]} -- {end[0].upper()}{end[1:]}'
         output += '\n@enduml'
+
+        with open('plantuml_export.txt', "w") as f:
+            f.write(output)
+
         return output
 
 print(parse_sql("schema.txt"))
