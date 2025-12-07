@@ -1,50 +1,65 @@
 @startuml
-    class Organization {
-       +String name
+    class Custome {
+       +Customer customer
+       +String email_address
+       +String full_name
     }
-    class City {
-       +String city
+    class Stor {
+       +Store store
+       +String store_name
+       +String web_address
+       +String physical_address
+       +String logo_mime_type
+       +String logo_filename
+       +String logo_charset
     }
-    class Address {
-       +String street
-       +City city
-       +String state
-       +Integer zipcode
+    class Produc {
+       +Product product
+       +String product_name
+       +String image_mime_type
+       +String image_filename
+       +String image_charset
     }
-    class Collection {
-       +Organization organization
-       +Parent parent
-       +String name
-       +Address address
-       +String url
+    class Orde {
+       +Order order
+       +Customer customer
+       +String order_status
+       +Store store
     }
-    class Contact {
-       +Collection collection
-       +String name
-       +String phone
-       +String email
+    class Shipmen {
+       +Shipment shipment
+       +Store store
+       +Customer customer
+       +String delivery_address
+       +String shipment_status
     }
-    class Equipment {
-       +Collection collection
-       +String name
-       +String description
-       +Float fee
-       +String image
-       +String url
+    class Order_ite {
+       +Order order
+       +Line_item line_item
+       +Product product
+       +Integer quantity
+       +Shipment shipment
     }
-    class Services {
-       +Collection collection
-       +String name
-       +String description
-       +Float fee
-       +String image
-       +String url
+    class Invento {
+       +Inventory inventory
+       +Store store
+       +Product product
+       +Integer product_inventory
     }
-    Address -- City
-    Collection -- Organization
-    Collection -- Parent
-    Collection -- Address
-    Contact -- Collection
-    Equipment -- Collection
-    Services -- Collection
+    Custome -- Customer
+    Stor -- Store
+    Produc -- Product
+    Orde -- Order
+    Orde -- Customer
+    Orde -- Store
+    Shipmen -- Shipment
+    Shipmen -- Store
+    Shipmen -- Customer
+    Order_ite -- Order
+    Order_ite -- Line_item
+    Order_ite -- Product
+    Order_ite -- Shipment
+    Invento -- Inventory
+    Invento -- Store
+    Invento -- Product
 @enduml
