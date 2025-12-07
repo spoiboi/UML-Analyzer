@@ -20,8 +20,6 @@ def parse_sql(sql_file):
                 elif line == ");":
                     in_table = False
                 elif in_table:
-
-
                     for kw in keywords.keys():
                         if kw in line:
                             curr_kw = kw

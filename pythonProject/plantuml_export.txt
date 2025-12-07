@@ -1,22 +1,6 @@
 @startuml
-    class Customers {
-       +String customer_name
-       +String email
+    class Users {
     }
-    class Orders {
-       +Customer customer
-       +Float amount
+    class Blog_posts {
     }
-    class Products {
-       +String product_name
-       +Float price
-    }
-    class Order_items {
-       +Order order
-       +Product product
-       +Integer quantity
-    }
-    Orders -- Customer
-    Order_items -- Order
-    Order_items -- Product
 @enduml
