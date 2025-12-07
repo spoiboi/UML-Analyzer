@@ -1,0 +1,52 @@
+@startuml
+    class Customers {
+       +String email_address
+       +String full_name
+    }
+    class Stores {
+       +String store_name
+       +String web_address
+       +String physical_address
+       +String logo_mime_type
+       +String logo_filename
+       +String logo_charset
+    }
+    class Products {
+       +String product_name
+       +String image_mime_type
+       +String image_filename
+       +String image_charset
+    }
+    class Orders {
+       +Customer customer
+       +String order_status
+       +Store store
+    }
+    class Shipments {
+       +Store store
+       +Customer customer
+       +String delivery_address
+       +String shipment_status
+    }
+    class Order_items {
+       +Order order
+       +Line_item line_item
+       +Product product
+       +Integer quantity
+       +Shipment shipment
+    }
+    class Inventory {
+       +Store store
+       +Product product
+       +Integer product_inventory
+    }
+    Orders -- Customer
+    Orders -- Store
+    Shipments -- Store
+    Shipments -- Customer
+    Order_items -- Order
+    Order_items -- Product
+    Order_items -- Shipment
+    Inventory -- Store
+    Inventory -- Product
+@enduml

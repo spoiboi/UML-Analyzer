@@ -16,7 +16,6 @@ def parse_sql(sql_file):
                     table_name = line[13:-2]
                     tables[table_name] = {}
                     in_table = True
-
                 elif line == ");":
                     in_table = False
                 elif in_table:
@@ -27,7 +26,7 @@ def parse_sql(sql_file):
                     if curr_kw:
                         index = line.index(curr_kw)
                         value = line[:index].strip()
-                        if f'{table_name[:-1]}_id' == value:
+                        if f'{table_name[:-1]}_id' == value or f'{table_name}_id' == value :
                             pass ## This checks to make sure a tables own ID doesn't get added here (sql2)
                         elif value != 'id':
                             tables[table_name][value] = keywords[curr_kw]
