@@ -40,14 +40,9 @@
        +Product product
        +Integer product_inventory
     }
-    Orders -- Customer
-    Orders -- Store
-    Shipments -- Store
-    Shipments -- Customer
     Order_items -- Order
     Order_items -- Line_item
     Order_items -- Product
     Order_items -- Shipment
     Inventory -- Store
     Inventory -- Product
-@enduml

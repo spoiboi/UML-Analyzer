@@ -1,0 +1,54 @@
+-- This sample SQL file is provided by Sample-Files.com
+-- Visit https://Sample-Files.com for more sample files and resources.
+
+-- Create a comprehensive database schema with tables, indexes, and constraints
+
+-- Customers table
+CREATE TABLE customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Orders table
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    order_date DATE,
+    amount DECIMAL(10, 2),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+-- Products table
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
+-- Order Items table
+CREATE TABLE order_items (
+    order_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Index on customer email
+CREATE INDEX idx_customer_email ON customers(email);
+
+-- Insert sample data
+INSERT INTO customers (customer_name, email) VALUES ('Alice', 'alice@example.com');
+INSERT INTO customers (customer_name, email) VALUES ('Bob', 'bob@example.com');
+
+INSERT INTO orders (customer_id, order_date, amount) VALUES (1, '2023-01-15', 150.00);
+INSERT INTO orders (customer_id, order_date, amount) VALUES (2, '2023-01-16', 200.00);
+
+INSERT INTO products (product_name, price) VALUES ('Laptop', 1000.00);
+INSERT INTO products (product_name, price) VALUES ('Smartphone', 500.00);
+
+INSERT INTO order_items (order_id, product_id, quantity) VALUES (1, 1, 1);
+INSERT INTO order_items (order_id, product_id, quantity) VALUES (2, 2, 2);
