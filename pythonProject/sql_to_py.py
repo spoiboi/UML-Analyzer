@@ -6,7 +6,7 @@ def parse_sql(sql_file):
         final_dict = {}
         in_table = False
         relationships = set()
-        keywords = {' INT': 'Integer', 'VARCHAR': 'String', 'TEXT': 'String', 'DECIMAL': 'Float'}
+        keywords = {' INT': 'Integer', 'VARCHAR': 'String', 'TEXT': 'String', 'DECIMAL': 'Float', 'TIMESTAMP': 'DateTime',}
         relationships = []
         for line in sql.readlines():
             curr_kw = ''
