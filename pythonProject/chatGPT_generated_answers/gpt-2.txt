@@ -1,0 +1,43 @@
+@startuml
+
+' -----------------------------------
+' TABLES
+' -----------------------------------
+
+class customers {
+    + customer_id : INT <<PK>>
+    customer_name : VARCHAR(50)
+    email : VARCHAR(100) <<UNIQUE>>
+    created_at : TIMESTAMP
+}
+
+class orders {
+    + order_id : INT <<PK>>
+    customer_id : INT <<FK>>
+    order_date : DATE
+    amount : DECIMAL(10,2)
+}
+
+class products {
+    + product_id : INT <<PK>>
+    product_name : VARCHAR(100)
+    price : DECIMAL(10,2)
+}
+
+class order_items {
+    + order_item_id : INT <<PK>>
+    order_id : INT <<FK>>
+    product_id : INT <<FK>>
+    quantity : INT
+}
+
+' -----------------------------------
+' RELATIONSHIPS
+' -----------------------------------
+
+orders }o--|| customers : customer_id FK
+
+order_items }o--|| orders : order_id FK
+order_items }o--|| products : product_id FK
+
+@enduml

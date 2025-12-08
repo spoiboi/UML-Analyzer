@@ -1,0 +1,92 @@
+@startuml
+
+' -----------------------------------
+' TABLES
+' -----------------------------------
+
+class customers {
+    + customer_id : INTEGER <<PK>>
+    email_address : VARCHAR2(255)
+    full_name : VARCHAR2(255)
+}
+
+class stores {
+    + store_id : INTEGER <<PK>>
+    store_name : VARCHAR2(255)
+    web_address : VARCHAR2(100)
+    physical_address : VARCHAR2(512)
+    latitude : NUMBER(9,6)
+    longitude : NUMBER(9,6)
+    logo : BLOB
+    logo_mime_type : VARCHAR2(512)
+    logo_filename : VARCHAR2(512)
+    logo_charset : VARCHAR2(512)
+    logo_last_updated : DATE
+}
+
+class products {
+    + product_id : INTEGER <<PK>>
+    product_name : VARCHAR2(255)
+    unit_price : NUMBER(10,2)
+    product_details : BLOB
+    product_image : BLOB
+    image_mime_type : VARCHAR2(512)
+    image_filename : VARCHAR2(512)
+    image_charset : VARCHAR2(512)
+    image_last_updated : DATE
+}
+
+class orders {
+    + order_id : INTEGER <<PK>>
+    order_tms : TIMESTAMP
+    customer_id : INTEGER <<FK>>
+    order_status : VARCHAR2(10)
+    store_id : INTEGER <<FK>>
+}
+
+class shipments {
+    + shipment_id : INTEGER <<PK>>
+    store_id : INTEGER <<FK>>
+    customer_id : INTEGER <<FK>>
+    delivery_address : VARCHAR2(512)
+    shipment_status : VARCHAR2(100)
+}
+
+class order_items {
+    + order_id : INTEGER <<PK>> <<FK>>
+    + line_item_id : INTEGER <<PK>>
+    product_id : INTEGER <<FK>>
+    unit_price : NUMBER(10,2)
+    quantity : INTEGER
+    shipment_id : INTEGER <<FK>>
+}
+
+class inventory {
+    + inventory_id : INTEGER <<PK>>
+    store_id : INTEGER <<FK>>
+    product_id : INTEGER <<FK>>
+    product_inventory : INTEGER
+}
+
+' -----------------------------------
+' RELATIONSHIPS
+' -----------------------------------
+
+' orders
+orders }o--|| customers : customer_id FK
+orders }o--|| stores : store_id FK
+
+' shipments
+shipments }o--|| stores : store_id FK
+shipments }o--|| customers : customer_id FK
+
+' order_items
+order_items }o--|| orders : order_id FK
+order_items }o--|| products : product_id FK
+order_items }o--o{ shipments : shipment_id FK
+
+' inventory
+inventory }o--|| stores : store_id FK
+inventory }o--|| products : product_id FK
+
+@enduml
