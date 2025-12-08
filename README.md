@@ -22,7 +22,7 @@ Compare our script to the performance of AI prompted to do the same task.
    - Place your SQL schema file as a .txt format in ```pythonProject/sql_files```
    - Place your plantUML code file as a .txt format in ```pythonProject/user_files```
    - This will allow your file to appear in the list of options during runtime
-6. If you want to test an arbitrary file against an answer key: In your terminal, run the command ```python gpt_answer_key.py``` (runs another CLI program). Make sure you added the target file to  ```pythonProject/chatGPT_generated_answers```
+6. If you want to test an arbitrary file against an answer key: In your terminal, run the command ```python gpt_answer_key.py``` (runs another CLI program). Make sure you added the target file to ```pythonProject/chatGPT_generated_answers```. 
 
 ## Testing the project
 For manual testing (grading purposes), follow these steps
@@ -34,4 +34,4 @@ For manual testing (grading purposes), follow these steps
 3. Re-run the project to see how the changes affect the output.
 
 ## Acknowledgements
-We used real sample SQL schema from real websites (1), sample-files (2), and Oracle (3) for authenticity. This was gathered from public sources
+We used real sample SQL schema from other projects by the developers (1), sample-files.com (2), and Oracle (3) for authenticity. This was gathered from public sources for realism.
