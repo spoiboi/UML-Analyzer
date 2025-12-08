@@ -8,6 +8,8 @@ Using Python, verify that UML class diagrams (written in PlantUML) accurately de
 Convert user-provided SQL schema to a plantUML class diagram and compare it with the user-provided plantUML code.
 Then, output a report citing inaccuracies, syntax errors, and a similarity score to the PlantUML code.
 
+The goal is to verify real implementations match documentation, and suggest fixes.
+
 ## Research & Report
 Compare our script to the performance of AI prompted to do the same task.
 
@@ -23,9 +25,12 @@ Compare our script to the performance of AI prompted to do the same task.
 
 ## Testing the project
 For manual testing (grading purposes), follow these steps
-1. The example user-provided file ```user_uml_import.txt``` has three key differences from the ```plantuml_export.txt```
+1. The example user-provided files ```uml-1.txt``` (and -2 and -3) has three key differences from the dump in ```plantuml_export.txt```
    - "Collection -- Parent" is missing in the relationships
    - "class Addreess" is misspelled, should be "class Address" 
    - "+String description" is missing from the Equipment class
-2. If you want to tweak the ```user_uml_input.txt``` file, simply alter whatever lines, attributes, etc.
+2. If you want to tweak the ```uml-1.txt``` file, simply alter whatever lines, attributes, etc.
 3. Re-run the project to see how the changes affect the output.
+
+## Acknowledgements
+We used real sample SQL schema from real websites (1), sample-files (2), and Oracle (3) for authenticity. This was gathered from public sources
