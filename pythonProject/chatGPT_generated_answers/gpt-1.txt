@@ -1,0 +1,89 @@
+@startuml
+
+' ----------------------------------------------------
+' Classes (Tables)
+' ----------------------------------------------------
+
+class organization {
+    + id : INT <<PK>>
+    name : VARCHAR(255)
+    created_at : TIMESTAMP
+}
+
+class city {
+    + id : INT <<PK>>
+    city : VARCHAR(255)
+}
+
+class address {
+    + id : INT <<PK>>
+    street : VARCHAR(255)
+    city_id : INT <<FK>>
+    state : VARCHAR(255)
+    zipcode : INT
+}
+
+class collection {
+    + id : INT <<PK>>
+    organization_id : INT <<FK>>
+    parent_id : INT <<FK>>
+    name : VARCHAR(255)
+    address_id : INT <<FK>>
+    url : VARCHAR(255)
+    created_at : TIMESTAMP
+}
+
+class contact {
+    + id : INT <<PK>>
+    collection_id : INT <<FK>>
+    name : VARCHAR(255)
+    phone : VARCHAR(50)
+    email : VARCHAR(255)
+}
+
+class equipment {
+    + id : INT <<PK>>
+    collection_id : INT <<FK>>
+    name : VARCHAR(255)
+    description : TEXT
+    fee : DECIMAL(10,2)
+    image : VARCHAR(255)
+    url : VARCHAR(255)
+}
+
+class services {
+    + id : INT <<PK>>
+    collection_id : INT <<FK>>
+    name : VARCHAR(255)
+    description : TEXT
+    fee : DECIMAL(10,2)
+    image : VARCHAR(255)
+    url : VARCHAR(255)
+}
+
+' ----------------------------------------------------
+' Relationships (Foreign Keys)
+' ----------------------------------------------------
+
+' address → city
+address }o--|| city : fk_address_city
+
+' collection → organization
+collection }o--|| organization : fk_collection_org
+
+' collection → collection (self-referencing parent)
+collection }o--o{ collection : fk_collection_parent
+
+' collection → address
+collection }o--o| address : fk_collection_address
+
+' contact → collection
+contact }o--|| collection : fk_contact_collection
+
+' equipment → collection
+equipment }o--|| collection : fk_equipment_collection
+
+' services → collection
+services }o--|| collection : fk_services_collection
+
+@enduml

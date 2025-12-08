@@ -20,6 +20,8 @@ for sql_file in sql_files:
 first_question = input(
     "Which SQL file do you want to convert to UML? Please enter the number of the SQL file you want to scan, enter 'quit' to stop: ")
 
+
+
 def prompt_validation():
     answer = input("\nDo you want to validate the uml against your own file? (enter 'y' or 'n'): \n")
     while answer.lower() != "y" and answer.lower() != "n":
