@@ -297,4 +297,6 @@ def compare_two_files(filename1, filename2):
     tables.clear()
     correct_classes, correct_rels, count = build_uml_model_from_file(filename1)
     user_classes, user_rels, count2 = build_uml_model_from_file(filename2)
+    compare_uml_models(correct_classes, correct_rels, user_classes, user_rels)
+    print_warning_messages(count2)
 
